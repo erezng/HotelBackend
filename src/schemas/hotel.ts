@@ -5,7 +5,7 @@ const hotelSchema = new Schema({
   rooms: Number,
   location: String,
   ac: Boolean,
-  toilet: Number,
-  shower: Number,
+  toilets: Number,
+  showers: Number,
 });
 export { hotelSchema };
