@@ -5,8 +5,12 @@ import { User } from "../db/models/user.js";
 import { Role } from "../db/models/role.js";
 import Jwt from "jsonwebtoken";
 import authConfig from "../db/config/auth.config.js";
+import { userAlreadyExists } from "../middleware/userAlreadyExists.js";
+import { validateSignUp } from "../middleware/validateSignUp.js";
+
 const router = Router();
-router.post("/signup", async (req, res) => {
+
+router.post("/signup", validateSignUp, userAlreadyExists, async (req, res) => {
   const body = _.pick(req.body, "username", "email", "password");
   body.password = await bcrypt.hash(body.password, 12);
   const user = new User(body);
@@ -19,7 +23,7 @@ router.post("/signup", async (req, res) => {
   }
 });
 
-router.post("/sigin", async (req, res) => {
+router.post("/sigin", validateSignUp, async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email }).populate<{
       roles: Array<typeof Role>;

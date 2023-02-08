@@ -7,5 +7,6 @@ const hotelSchema = new Schema({
   ac: Boolean,
   toilets: Number,
   showers: Number,
+  img: String,
 });
 export { hotelSchema };
