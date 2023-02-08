@@ -1,6 +1,6 @@
 import { Router } from "express";
-import { Hotel } from "../models/hotel.js";
 import _ from "underscore";
+import { Hotel } from "../db/models/hotel.js";
 const router = Router();
 router.post("/", (req, res) => {
   const body = _.pick(
