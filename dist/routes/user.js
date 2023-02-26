@@ -16,6 +16,7 @@ import Jwt from "jsonwebtoken";
 import authConfig from "../db/config/auth.config.js";
 import { userAlreadyExists } from "../middleware/userAlreadyExists.js";
 import { validateSignUp } from "../middleware/validateSignUp.js";
+import { verifySignInBody } from "../middleware/verifySignInBody.js";
 const router = Router();
 router.post("/signup", validateSignUp, userAlreadyExists, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const body = _.pick(req.body, "username", "email", "password");
@@ -30,7 +31,7 @@ router.post("/signup", validateSignUp, userAlreadyExists, (req, res) => __awaite
         return res.status(500).json({ message: "Server DB error", error: e });
     }
 }));
-router.post("/sigin", validateSignUp, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.post("/signin", verifySignInBody, (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const user = yield User.findOne({ email: req.body.email }).populate("roles");
         if (!user)

@@ -3,10 +3,9 @@ import _ from "underscore";
 import { Hotel } from "../db/models/hotel.js";
 import { isAdmin } from "../middleware/isAdmin.js";
 import { isModerator } from "../middleware/isModerator.js";
-import { verifySignInBody } from "../middleware/verifySignInBody.js";
 const router = Router();
 
-router.get("/", async (req, res) => {
+router.get("/hotelslist", async (req, res) => {
   //TODO: handle errors:
   try {
     const hotels = await Hotel.find();
@@ -16,7 +15,7 @@ router.get("/", async (req, res) => {
   }
 });
 
-router.post("/", verifySignInBody, isAdmin || isModerator, (req, res) => {
+router.post("/addproperty", async (req, res) => {
   const body = _.pick(
     req.body,
     "name",
@@ -28,7 +27,7 @@ router.post("/", verifySignInBody, isAdmin || isModerator, (req, res) => {
     "img"
   );
   const hotel = new Hotel(body);
-  hotel
+  await hotel
     .save()
     .then(
       (saved) => res.json({ message: "Saved successfully" })

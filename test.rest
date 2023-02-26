@@ -1,0 +1,13 @@
+###POST to /api/users
+POST http://localhost:3001/api/hotels/addproperty
+Content-Type: "application/json"
+
+{
+    "name":"hilton eilat",
+    "rooms" : "4",
+    "location":"eilat",
+    "ac":true,
+    "toilets":"3",
+    "showers":"2",
+    "img":"asddsfgd"
+}

@@ -10,11 +10,8 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 import { Router } from "express";
 import _ from "underscore";
 import { Hotel } from "../db/models/hotel.js";
-import { isAdmin } from "../middleware/isAdmin.js";
-import { isModerator } from "../middleware/isModerator.js";
-import { verifySignInBody } from "../middleware/verifySignInBody.js";
 const router = Router();
-router.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+router.get("/hotelslist", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     //TODO: handle errors:
     try {
         const hotels = yield Hotel.find();
@@ -24,10 +21,10 @@ router.get("/", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.status(500).json({ message: "Error", error: e });
     }
 }));
-router.post("/", verifySignInBody, isAdmin || isModerator, (req, res) => {
+router.post("/addproperty", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const body = _.pick(req.body, "name", "rooms", "location", "ac", "toilets", "showers", "img");
     const hotel = new Hotel(body);
-    hotel
+    yield hotel
         .save()
         .then((saved) => res.json({ message: "Saved successfully" })
     // id: saved._id,
@@ -36,5 +33,5 @@ router.post("/", verifySignInBody, isAdmin || isModerator, (req, res) => {
         .catch((e) => {
         res.status(500).json({ message: `Error:${e}` });
     });
-});
+}));
 export { router as hotelRouter };

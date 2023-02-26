@@ -7,6 +7,7 @@ import Jwt from "jsonwebtoken";
 import authConfig from "../db/config/auth.config.js";
 import { userAlreadyExists } from "../middleware/userAlreadyExists.js";
 import { validateSignUp } from "../middleware/validateSignUp.js";
+import { verifySignInBody } from "../middleware/verifySignInBody.js";
 
 const router = Router();
 
@@ -23,7 +24,7 @@ router.post("/signup", validateSignUp, userAlreadyExists, async (req, res) => {
   }
 });
 
-router.post("/sigin", validateSignUp, async (req, res) => {
+router.post("/signin", verifySignInBody, async (req, res) => {
   try {
     const user = await User.findOne({ email: req.body.email }).populate<{
       roles: Array<typeof Role>;
