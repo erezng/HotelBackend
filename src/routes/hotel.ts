@@ -1,42 +1,34 @@
 import { Router } from "express";
+import { Hotel } from "../db/models/hotelModel.js";
 import _ from "underscore";
-import { Hotel } from "../db/models/hotel.js";
-import { isAdmin } from "../middleware/isAdmin.js";
-import { isModerator } from "../middleware/isModerator.js";
+
 const router = Router();
-
-router.get("/hotelslist", async (req, res) => {
-  //TODO: handle errors:
-  try {
-    const hotels = await Hotel.find();
-    res.json(hotels);
-  } catch (e) {
-    res.status(500).json({ message: "Error", error: e });
-  }
-});
-
-router.post("/addproperty", async (req, res) => {
+router.post("/addproperty", (req, res) => {
   const body = _.pick(
     req.body,
     "name",
-    "rooms",
-    "location",
-    "ac",
-    "toilets",
     "showers",
-    "img"
+    "location",
+    "rooms",
+    "img",
+    "toilets"
   );
-  const hotel = new Hotel(body);
-  await hotel
+  new Hotel(body)
     .save()
-    .then(
-      (saved) => res.json({ message: "Saved successfully" })
-      // id: saved._id,
-      // hotel:saved
-    )
-    .catch((e) => {
-      res.status(500).json({ message: `Error:${e}` });
-    });
+    .then((result) => res.json({ message: JSON.stringify(result) }))
+    .catch((e) => res.json({ error: `${e}` }));
+});
+router.get("/search/:key", async (req, res) => {
+  const result = await Hotel.find({
+    $or: [{ name: { $regex: req.params.key, $options: "i" } }],
+  });
+  res.json(result);
+});
+
+router.get("/allhotels", (req, res) => {
+  Hotel.find()
+    .then((result) => res.json(result))
+    .catch((e) => res.json({ error: `${e}` }));
 });
 
 export { router as hotelRouter };

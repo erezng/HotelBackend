@@ -8,25 +8,20 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
     });
 };
 import { Router } from "express";
-import { Hotel } from "../db/models/hotelModel.js";
+import { Game } from "../db/models/gameModel.js";
 import _ from "underscore";
 const router = Router();
 router.post("/addproperty", (req, res) => {
     const body = _.pick(req.body, "name", "showers", "location", "rooms", "img", "toilets");
-    new Hotel(body)
+    new Game(body)
         .save()
         .then((result) => res.json({ message: JSON.stringify(result) }))
         .catch((e) => res.json({ error: `${e}` }));
 });
 router.get("/search/:key", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield Hotel.find({
-        $or: [{ name: { $regex: req.params.key, $options: "i" } }],
+    const result = yield Game.find({
+        $or: [{ title: { $regex: req.params.key, $options: "i" } }],
     });
     res.json(result);
 }));
-router.get("/allhotels", (req, res) => {
-    Hotel.find()
-        .then((result) => res.json(result))
-        .catch((e) => res.json({ error: `${e}` }));
-});
-export { router as hotelRouter };
+export { router as gamesRouter };

@@ -1,13 +1,18 @@
-###POST to /api/users
-POST http://localhost:3001/api/hotels/addproperty
-Content-Type: "application/json"
+###POST to /api/hotels/addpropery
+POST  http://localhost:3001/api/hotels/addproperty
+Content-Type: application/json
 
 {
-    "name":"hilton eilat",
-    "rooms" : "4",
+    "name": "taba",
+    "rooms": 7,
     "location":"eilat",
-    "ac":true,
-    "toilets":"3",
-    "showers":"2",
-    "img":"asddsfgd"
-}
+    "toilets": 8,
+    "showers": 3,
+    "img": "https://images.g2a.com/uiadminimages/770x443/1x1x1/568c927e7420/a9315b90684f4cc0a7befe7d"
+  }
+
+##### get to /api/hotels/search
+GET http://localhost:3001/api/hotels/search/h
+
+##### get to /api/hotels/search
+GET http://localhost:3001/api/hotels/allhotels

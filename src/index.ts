@@ -3,8 +3,8 @@ import morgan from "morgan";
 import { connect } from "./db/connect.js";
 import { notFound } from "./middleware/not-found.js";
 import cors from "cors";
-import { hotelRouter } from "./routes/hotel.js";
 import { authRouter } from "./routes/user.js";
+import { hotelRouter } from "./routes/hotel.js";
 
 const app = express();
 
@@ -26,8 +26,8 @@ app.use(express.json());
 app.use(morgan("dev"));
 
 //routes:
-app.use("/api/hotels", hotelRouter);
 app.use("/api/auth", authRouter);
+app.use("/api/hotels", hotelRouter);
 
 //404:
 app.use(notFound);
