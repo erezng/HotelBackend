@@ -1,6 +1,8 @@
 import { Router } from "express";
 import { Hotel } from "../db/models/hotelModel.js";
-import _ from "underscore";
+import _, { filter, result } from "underscore";
+import { validateToken } from "../middleware/validateToken.js";
+import { isAdmin } from "../middleware/isAdmin.js";
 
 const router = Router();
 router.post("/addproperty", (req, res) => {
@@ -29,6 +31,20 @@ router.get("/allhotels", (req, res) => {
   Hotel.find()
     .then((result) => res.json(result))
     .catch((e) => res.json({ error: `${e}` }));
+});
+
+router.delete("/delete/:id", (req, res) => {
+  Hotel.deleteOne({ _id: req.params.id })
+    .then((result) => res.json(result))
+    .catch((e) => res.json({ error: `${e}` }));
+});
+
+router.put("/update/:id", async (req, res) => {
+  const result = await Hotel.updateOne(
+    { _id: req.params.id },
+    { $set: req.body }
+  );
+  res.send(result);
 });
 
 export { router as hotelRouter };

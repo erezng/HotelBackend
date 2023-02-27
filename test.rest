@@ -16,3 +16,19 @@ GET http://localhost:3001/api/hotels/search/h
 
 ##### get to /api/hotels/search
 GET http://localhost:3001/api/hotels/allhotels
+
+###put to /api/hotel/update
+PUT http://localhost:3001/api/hotels/update/63fc841de6a4c58785418ed3
+Content-Type: application/json
+
+{ 
+    "name": "clubhotel",
+    "rooms": 7,
+    "location":"eilat",
+    "toilets": 8,
+    "showers": 3,
+    "img": "https://images.g2a.com/uiadminimages/770x443/1x1x1/568c927e7420/a9315b90684f4cc0a7befe7d"
+  }
+
+#####delete to /api/hotel/delete {*}
+DELETE  http://localhost:3001/api/hotels/delete/63fc91a5d5bfa6b750134937

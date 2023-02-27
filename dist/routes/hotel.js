@@ -29,4 +29,13 @@ router.get("/allhotels", (req, res) => {
         .then((result) => res.json(result))
         .catch((e) => res.json({ error: `${e}` }));
 });
+router.delete("/delete/:id", (req, res) => {
+    Hotel.deleteOne({ _id: req.params.id })
+        .then((result) => res.json(result))
+        .catch((e) => res.json({ error: `${e}` }));
+});
+router.put("/update/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield Hotel.updateOne({ _id: req.params.id }, { $set: req.body });
+    res.send(result);
+}));
 export { router as hotelRouter };
