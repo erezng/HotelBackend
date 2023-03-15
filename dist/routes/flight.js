@@ -7,41 +7,35 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-import { Router } from "express";
-import { Hotel } from "../db/models/hotelModel.js";
+import { Router } from 'express';
 import _ from "underscore";
+import { Flight } from '../db/models/flightModel.js';
 const router = Router();
-router.post("/addproperty", (req, res) => {
-    const body = _.pick(req.body, "name", "showers", "location", "rooms", "img", "toilets", "price", "priceweekend");
-    new Hotel(body)
+router.post("/addflight", (req, res) => {
+    const body = _.pick(req.body, "fron", "dst", "price");
+    new Flight(body)
         .save()
         .then((result) => res.json({ message: JSON.stringify(result) }))
         .catch((e) => res.json({ error: `${e}` }));
 });
-router.get("/search/:key", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield Hotel.find({
+router.get("/search:key", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield Flight.find({
         $or: [{ name: { $regex: req.params.key, $options: "i" } }],
     });
     res.json(result);
 }));
-router.get("/allhotels", (req, res) => {
-    Hotel.find()
-        .then((result) => res.json(result))
-        .catch((e) => res.json({ error: `${e}` }));
-});
-router.get("/hotel/:_id", (req, res) => {
+router.get("/flight:_id", (req, res) => {
     const id = req.params._id;
-    Hotel.findOne({ _id: id })
+    Flight.findOne({ _id: id })
         .then((result) => res.json(result))
         .catch((e) => res.json({ error: `${e}` }));
 });
 router.delete("/delete/:id", (req, res) => {
-    Hotel.deleteOne({ _id: req.params.id })
+    Flight.deleteOne({ _id: req.params.id })
         .then((result) => res.json(result))
         .catch((e) => res.json({ error: `${e}` }));
 });
 router.put("/update/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    const result = yield Hotel.updateOne({ _id: req.params.id }, { $set: req.body });
-    res.send(result);
+    const result = yield Flight.updateOne({ _id: req.params.id }, { $set: req.body });
 }));
-export { router as hotelRouter };
+export { router as flightRouter };

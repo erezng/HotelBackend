@@ -13,7 +13,9 @@ router.post("/addproperty", (req, res) => {
     "location",
     "rooms",
     "img",
-    "toilets"
+    "toilets",
+    "price",
+    "priceweekend"
   );
   new Hotel(body)
     .save()
@@ -29,6 +31,13 @@ router.get("/search/:key", async (req, res) => {
 
 router.get("/allhotels", (req, res) => {
   Hotel.find()
+    .then((result) => res.json(result))
+    .catch((e) => res.json({ error: `${e}` }));
+});
+
+router.get("/hotel/:_id", (req, res) => {
+  const id = req.params._id;
+  Hotel.findOne({ _id: id })
     .then((result) => res.json(result))
     .catch((e) => res.json({ error: `${e}` }));
 });

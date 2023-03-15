@@ -1,4 +1,4 @@
 import { model } from "mongoose";
-import { hotelsSchema } from "../schemas/hotelSchema.js";
-const Hotel = model("Hotel", hotelsSchema);
+import { hotelSchema } from "../schemas/hotel.js";
+const Hotel = model("Hotel", hotelSchema);
 export { Hotel };

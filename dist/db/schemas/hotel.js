@@ -6,5 +6,7 @@ const hotelSchema = new Schema({
     toilets: Number,
     showers: Number,
     img: String,
+    price: Number,
+    priceweekend: Number
 });
 export { hotelSchema };

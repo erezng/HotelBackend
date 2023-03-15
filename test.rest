@@ -17,12 +17,16 @@ GET http://localhost:3001/api/hotels/search/h
 ##### get to /api/hotels/search
 GET http://localhost:3001/api/hotels/allhotels
 
+##### get to /api/hotels/search
+GET http://localhost:3001/api/hotels/hotel/63fc841de6a4c58785418ed3
+
+
 ###put to /api/hotel/update
 PUT http://localhost:3001/api/hotels/update/63fc841de6a4c58785418ed3
 Content-Type: application/json
 
 { 
-    "name": "clubhotel",
+    "name": "clubhotel primum",
     "rooms": 7,
     "location":"eilat",
     "toilets": 8,
