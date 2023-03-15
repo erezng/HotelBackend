@@ -6,7 +6,7 @@ const router=Router()
 router.post("/addflight",(req,res)=>{
     const body=_.pick(
         req.body,
-        "fron",
+        "from",
         "dst",
         "price"
     )

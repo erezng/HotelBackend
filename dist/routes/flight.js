@@ -12,7 +12,7 @@ import _ from "underscore";
 import { Flight } from '../db/models/flightModel.js';
 const router = Router();
 router.post("/addflight", (req, res) => {
-    const body = _.pick(req.body, "fron", "dst", "price");
+    const body = _.pick(req.body, "from", "dst", "price");
     new Flight(body)
         .save()
         .then((result) => res.json({ message: JSON.stringify(result) }))

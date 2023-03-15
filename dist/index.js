@@ -5,6 +5,8 @@ import { notFound } from "./middleware/not-found.js";
 import cors from "cors";
 import { authRouter } from "./routes/user.js";
 import { hotelRouter } from "./routes/hotel.js";
+import { taxiRouter } from "./routes/taxi.js";
+import { flightRouter } from "./routes/flight.js";
 const app = express();
 connect().catch((e) => {
     console.log(e);
@@ -21,6 +23,8 @@ app.use(morgan("dev"));
 //routes:
 app.use("/api/auth", authRouter);
 app.use("/api/hotels", hotelRouter);
+app.use("/api/taxi", taxiRouter);
+app.use("/api/flight", flightRouter);
 //404:
 app.use(notFound);
 const PORT = 3001;
