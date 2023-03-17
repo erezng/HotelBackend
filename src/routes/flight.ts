@@ -22,6 +22,12 @@ router.get("/search:key",async(req,res)=>{
     res.json(result)
 })
 
+router.get("/allflights", (req, res) => {
+  Flight.find()
+    .then((result) => res.json(result))
+    .catch((e) => res.json({ error: `${e}` }));
+});
+
 router.get("/flight:_id",(req,res)=>{
     const id=req.params._id;
     Flight.findOne({_id:id})
