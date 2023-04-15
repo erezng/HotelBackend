@@ -36,3 +36,11 @@ Content-Type: application/json
 
 #####delete to /api/hotel/delete {*}
 DELETE  http://localhost:3001/api/hotels/delete/63fc91a5d5bfa6b750134937
+
+###put to /api/hotel/update
+PUT http://localhost:3001/api/hotels/updatefav/63fc8547320865c2a2c51b85
+Content-Type: application/json
+
+{ 
+    "isfav":"true"
+  }

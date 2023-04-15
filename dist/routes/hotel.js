@@ -12,7 +12,7 @@ import { Hotel } from "../db/models/hotelModel.js";
 import _ from "underscore";
 const router = Router();
 router.post("/addproperty", (req, res) => {
-    const body = _.pick(req.body, "name", "showers", "location", "rooms", "img", "toilets", "price", "priceweekend");
+    const body = _.pick(req.body, "name", "showers", "location", "rooms", "img", "toilets", "price", "priceweekend", "isfav", "cart");
     new Hotel(body)
         .save()
         .then((result) => res.json({ message: JSON.stringify(result) }))
@@ -42,6 +42,12 @@ router.delete("/delete/:id", (req, res) => {
 });
 router.put("/update/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const result = yield Hotel.updateOne({ _id: req.params.id }, { $set: req.body });
+    res.send(result);
+}));
+router.put("/updatefav/:id", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield Hotel
+        .findOne({ _id: req.params.id })
+        .updateOne({ _id: req.params.id }, { $set: { $not: "$isfav" } });
     res.send(result);
 }));
 export { router as hotelRouter };

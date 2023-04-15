@@ -15,7 +15,9 @@ router.post("/addproperty", (req, res) => {
     "img",
     "toilets",
     "price",
-    "priceweekend"
+    "priceweekend",
+    "isfav",
+    "cart"
   );
   new Hotel(body)
     .save()
@@ -56,4 +58,13 @@ router.put("/update/:id", async (req, res) => {
   res.send(result);
 });
 
+router.put("/updatefav/:id", async (req, res) => {
+  const result = await Hotel
+  .findOne({  _id: req.params.id })
+  .updateOne(
+    { _id: req.params.id },
+    { $set: {$not: "$isfav"}}
+  );
+  res.send(result);
+});
 export { router as hotelRouter };

@@ -1,3 +1,4 @@
+import { boolean } from "joi";
 import { Schema } from "mongoose";
 
 const hotelSchema = new Schema({
@@ -8,6 +9,8 @@ const hotelSchema = new Schema({
   showers: Number,
   img: String,
   price:Number,
-  priceweekend:Number
+  priceweekend:Number,
+  isfav:Boolean,
+  cart:Boolean,
 });
 export { hotelSchema };

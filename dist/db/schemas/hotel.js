@@ -7,6 +7,8 @@ const hotelSchema = new Schema({
     showers: Number,
     img: String,
     price: Number,
-    priceweekend: Number
+    priceweekend: Number,
+    isfav: Boolean,
+    cart: Boolean,
 });
 export { hotelSchema };
