@@ -11,6 +11,6 @@ const hotelSchema = new Schema({
   price:Number,
   priceweekend:Number,
   isfav:Boolean,
-  cart:Boolean,
+  cart:Number,
 });
 export { hotelSchema };
